@@ -186,3 +186,21 @@ function deathScreen() {
 function playAgain() {
     location.reload();
 }
+
+function up() {
+    if (!ship.dead) {
+        ship.ySpeed = -5;
+    } 
+}
+
+function down() {
+    if (!ship.dead) {
+        ship.ySpeed = 5;
+    }
+}
+
+function stop() {
+    if (!ship.dead) {
+        ship.ySpeed = 0;
+    }
+}
