@@ -189,18 +189,18 @@ function playAgain() {
 
 function up() {
     if (!ship.dead) {
-        ship.ySpeed = -5;
+        ship.y-=20;
     } 
 }
 
 function down() {
     if (!ship.dead) {
-        ship.ySpeed = 5;
+        ship.y+=20;
     }
 }
 
-function stop() {
-    if (!ship.dead) {
-        ship.ySpeed = 0;
-    }
+function enableMobile() {
+    document.getElementById("goUp").style.display = "block";
+    document.getElementById("goDown").style.display = "block";
+    document.getElementById("mobileEnable").style.display = "none";
 }
