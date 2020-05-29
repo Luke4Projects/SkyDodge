@@ -55,6 +55,8 @@ class Debris {
     }
 }
 
+var onMobile = false;
+
 var ship;
 
 var debris = [];
@@ -66,6 +68,27 @@ var atMainMenu = true;
 var atDeathScreen = false;
 
 var score = 0;
+
+var touchX;
+var touchY;
+
+var touching = false;
+
+window.addEventListener('touchstart', function(e) {
+    touchX = e.touches[0].clientX;
+    touchY = e.touches[0].clientY;
+    touching = true;
+    if (touchX > 850 && touchX < 850 + 100 && touchY > 203 && touchY < 203 + 100) {
+        down();
+    }
+    if (touchX > 850 && touchX < 850 + 100 && touchY > 50 && touchY < 50 + 100) {
+        up();
+    }
+})
+window.addEventListener('touchend', function() {
+    touching = false;
+    ship.ySpeed = 0;
+})
 
 window.onload = function() {
     start();
@@ -188,14 +211,14 @@ function playAgain() {
 }
 
 function up() {
-    if (!ship.dead) {
-        ship.y-=20;
+    if (!ship.dead && touching) {
+        ship.ySpeed = -5;
     } 
 }
 
 function down() {
-    if (!ship.dead) {
-        ship.y+=20;
+    if (!ship.dead && touching) {
+        ship.ySpeed = 5;
     }
 }
 
@@ -203,4 +226,5 @@ function enableMobile() {
     document.getElementById("goUp").style.display = "block";
     document.getElementById("goDown").style.display = "block";
     document.getElementById("mobileEnable").style.display = "none";
+    onMobile = true;
 }
