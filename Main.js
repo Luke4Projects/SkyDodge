@@ -78,16 +78,10 @@ window.addEventListener('touchstart', function (e) {
     touchX = e.touches[0].clientX;
     touchY = e.touches[0].clientY;
     touching = true;
-    if (touchX > 850 && touchX < 850 + 100 && touchY > 203 && touchY < 203 + 100) {
-        down();
-    }
-    if (touchX > 850 && touchX < 850 + 100 && touchY > 50 && touchY < 50 + 100) {
-        up();
-    }
 })
 window.addEventListener('touchend', function () {
     touching = false;
-    ship.ySpeed = 0;
+    //ship.ySpeed = 0;
 })
 
 window.onload = function () {
@@ -103,19 +97,6 @@ function update() {
     if (atMainMenu) {
         //main menu background
         c.drawImage(document.getElementById("mainBackground"), 0, 0, 800, 600);
-        if (onMobile) {
-            //up button
-            c.fillStyle = 'green';
-            c.fillRect(850, 50, 100, 100);
-            //down button
-            c.fillRect(850, 203, 100, 100);
-            //draw text on buttons
-            c.font = "50px Arial";
-            c.fillStyle = 'white';
-            c.fillText("Up", 865, 120);
-            c.font = "40px Arial";
-            c.fillText("Down", 848, 270)
-        }
     } else if (atDeathScreen) {
         //death screen background
         c.fillStyle = 'gray';
@@ -148,21 +129,17 @@ function update() {
         c.fillStyle = 'white';
         c.font = "50px Courier New";
         c.fillText(`Score: ${score}`, 500, 100);
-        //second background
-        c.fillStyle = 'white';
-        c.fillRect(800, 0, 800, 800);
-        if (onMobile) {
-            //up button
-            c.fillStyle = 'green';
-            c.fillRect(850, 50, 100, 100);
-            //down button
-            c.fillRect(850, 203, 100, 100);
-            //draw text on buttons
-            c.font = "50px Arial";
-            c.fillStyle = 'white';
-            c.fillText("Up", 865, 120);
-            c.font = "40px Arial";
-            c.fillText("Down", 848, 270)
+        //move ship to where player taps
+        if (!ship.dead) {
+            if (touchY > ship.y) {
+                ship.ySpeed = 5;
+            }
+            if (touchY < ship.y + ship.h) {
+                ship.ySpeed = -5;
+            }
+            if (touchY > ship.y && touchY < ship.y + ship.h) {
+                ship.ySpeed = 0;
+            }
         }
     }
 }
@@ -249,10 +226,4 @@ function down() {
     if (!ship.dead && touching) {
         ship.ySpeed = 5;
     }
-}
-
-function enableMobile() {
-    document.getElementById("mobileEnable").style.display = "none";
-    canvas.width += 200;
-    onMobile = true;
 }
