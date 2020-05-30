@@ -15,7 +15,7 @@ class Ship {
         //c.fillRect(this.x, this.y, this.w, this.h);
         c.drawImage(document.getElementById("shipImg"), this.x, this.y, this.w, this.h);
         this.y += this.ySpeed;
-        
+
         if (this.dead) {
             this.ySpeed = 3;
         }
@@ -39,12 +39,12 @@ class Debris {
     }
     update() {
         this.x -= this.xSpeed;
-        
-        if (ship.x + ship.w > this.x && ship.x < this.x + this.w && ship.y + ship.h > this.y && ship.y+22 < this.y + this.h) {
+
+        if (ship.x + ship.w > this.x && ship.x < this.x + this.w && ship.y + ship.h > this.y && ship.y + 22 < this.y + this.h) {
             ship.dead = true;
         }
-        
-        if (ship.x + ship.w-64 > this.x && ship.x < this.x + this.w && ship.y + ship.h > this.y && ship.y < this.y + this.h) {
+
+        if (ship.x + ship.w - 64 > this.x && ship.x < this.x + this.w && ship.y + ship.h > this.y && ship.y < this.y + this.h) {
             ship.dead = true;
         }
 
@@ -74,7 +74,7 @@ var touchY;
 
 var touching = false;
 
-window.addEventListener('touchstart', function(e) {
+window.addEventListener('touchstart', function (e) {
     touchX = e.touches[0].clientX;
     touchY = e.touches[0].clientY;
     touching = true;
@@ -85,12 +85,12 @@ window.addEventListener('touchstart', function(e) {
         up();
     }
 })
-window.addEventListener('touchend', function() {
+window.addEventListener('touchend', function () {
     touching = false;
     ship.ySpeed = 0;
 })
 
-window.onload = function() {
+window.onload = function () {
     start();
     setInterval(update, 10);
 }
@@ -103,6 +103,19 @@ function update() {
     if (atMainMenu) {
         //main menu background
         c.drawImage(document.getElementById("mainBackground"), 0, 0, 800, 600);
+        if (onMobile) {
+            //up button
+            c.fillStyle = 'green';
+            c.fillRect(850, 50, 100, 100);
+            //down button
+            c.fillRect(850, 203, 100, 100);
+            //draw text on buttons
+            c.font = "50px Arial";
+            c.fillStyle = 'white';
+            c.fillText("Up", 865, 120);
+            c.font = "40px Arial";
+            c.fillText("Down", 848, 270)
+        }
     } else if (atDeathScreen) {
         //death screen background
         c.fillStyle = 'gray';
@@ -135,26 +148,42 @@ function update() {
         c.fillStyle = 'white';
         c.font = "50px Courier New";
         c.fillText(`Score: ${score}`, 500, 100);
+        //second background
+        c.fillStyle = 'white';
+        c.fillRect(800, 0, 800, 800);
+        if (onMobile) {
+            //up button
+            c.fillStyle = 'green';
+            c.fillRect(850, 50, 100, 100);
+            //down button
+            c.fillRect(850, 203, 100, 100);
+            //draw text on buttons
+            c.font = "50px Arial";
+            c.fillStyle = 'white';
+            c.fillText("Up", 865, 120);
+            c.font = "40px Arial";
+            c.fillText("Down", 848, 270)
+        }
     }
 }
 
 function keyDown(e) {
-    switch(e.keyCode){
+    switch (e.keyCode) {
         case 40:
             if (!ship.dead) {
-                ship.ySpeed=5;
+                ship.ySpeed = 5;
             }
             break;
         case 38:
             if (!ship.dead) {
-                ship.ySpeed=-5;
+                ship.ySpeed = -5;
             }
             break;
     }
 }
 
 function keyUp(e) {
-    switch(e.keyCode){
+    switch (e.keyCode) {
         case 40:
             if (!ship.dead) {
                 ship.ySpeed = 0;
@@ -179,12 +208,12 @@ function generateDebris() {
 
 function decreaseInterval() {
     if (timeBetweenDebrisSpawn > 100) {
-        timeBetweenDebrisSpawn-=100;
+        timeBetweenDebrisSpawn -= 100;
     }
 }
 function increaseSpeed() {
     for (let i = 0; i < debris.length; i++) {
-        debris[i].xSpeed+=3;
+        debris[i].xSpeed += 3;
     }
 }
 
@@ -192,7 +221,7 @@ function startGame() {
     atMainMenu = false;
     if (!atMainMenu) {
         generateDebris();
-    
+
         setInterval(decreaseInterval, 2000);
         setInterval(increaseSpeed, 10000);
     }
@@ -213,7 +242,7 @@ function playAgain() {
 function up() {
     if (!ship.dead && touching) {
         ship.ySpeed = -5;
-    } 
+    }
 }
 
 function down() {
@@ -223,8 +252,7 @@ function down() {
 }
 
 function enableMobile() {
-    document.getElementById("goUp").style.display = "block";
-    document.getElementById("goDown").style.display = "block";
     document.getElementById("mobileEnable").style.display = "none";
+    canvas.width += 200;
     onMobile = true;
 }
