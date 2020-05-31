@@ -1,8 +1,11 @@
- <!-- style="display: none">            Main Menu Elements               </-->
+ <!-- style="display: none">            HTML CODE FOR GAME               </-->
 
  <body>
+
 <h1 id="titleM">Sky Dodge</h1>
 <button id="playButton" onclick="startGame();">Play</button>
+
+<button id="tutorial" onclick="tutorial()">How To Play</button>
 
 <h1 id="deathText">You Died</h1>
 
@@ -14,6 +17,8 @@
 <img id="shipImg" src="data/Ship.png">
 <img id="debrisImg" src="data/debris.png">
 <img id="mainBackground" src="data/background.png">
+
+<h1 id="text" style="font-family:'Comic Sans MS'">This game works on mobile devices! See "How to play"</h1>
 
 <script src="Main.js"></script>
 
@@ -54,10 +59,35 @@
         border: none;
         font-size: 30px;
         font-family: fantasy;
-        transition-duration: 1s;
+        transition-duration: 0.2s;
     }
     #playButton:hover {
-        background-color: green;
+        width: 210px;
+        height: 60px;
+        left: 305px;
+        top: 115px;
+        background-color: lightcoral;
+        font-size: 35px;
+    }
+    #tutorial {
+        position: absolute;
+        top: 230px;
+        left: 310px;
+        width: 200px;
+        height: 50px;
+        background-color: lightgreen;
+        border: none;
+        font-size: 25px;
+        font-family: fantasy;
+        transition-duration: 0.4s;
+    }
+    #tutorial:hover {
+        width: 210px;
+        height: 60px;
+        left: 305px;
+        top: 225px;
+        background-color: lightcoral;
+        font-size: 28px;
     }
     #showMaydayAlert {
         position: absolute;
